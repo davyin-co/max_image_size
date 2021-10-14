@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * The max image size module.
+ */
+
+use Drupal\file\FileInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for file entities.
+ */
+function max_image_size_file_presave(FileInterface $file) {
+  $config = \Drupal::configFactory()->get('max_image_size.settings');
+  /** @var \Drupal\max_image_size\ResizeFileHelper $resize */
+  $resize = \Drupal::service('max_image_size.resize_file');
+  if ($config->get('enabled') && $resize->isImageFile($file) && $image = $resize->resizeImage($file)) {
+    $file->setSize($image->getFileSize());
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete() for file entities.
+ */
+function max_image_size_file_delete(FileInterface $file) {
+  \Drupal::service('max_image_size.resize_file')->deleteImage($file);
+}

@@ -1,0 +1,15 @@
+max_image_size.settings:
+  path: '/admin/config/media/max-image-size/settings'
+  defaults:
+    _form: '\Drupal\max_image_size\Form\MaxImageSizeSettingsForm'
+    _title: 'Max Image Size Settings'
+  requirements:
+    _permission: 'administer max image size settings'
+
+max_image_size.list:
+  path: '/admin/config/media/max-image-size'
+  defaults:
+    _controller: '\Drupal\max_image_size\Controller\MaxImageSizeController::resizeList'
+    _title: 'List'
+  requirements:
+    _permission: 'administer max image size settings'

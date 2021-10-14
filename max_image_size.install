@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ *
+ * This defines the database table which will hold the image resize info.
+ *
+ * @ingroup max_image_size
+ */
+function max_image_size_schema() {
+  $schema['max_image_size'] = [
+    'description' => 'Keeps track of processed files.',
+    'fields' => [
+      'id' => [
+        'description' => 'Primary Key: Unique person ID.',
+        'type' => 'serial',
+        'not null' => TRUE,
+      ],
+      'uuid' => [
+        'description' => 'The uuid identifier for a file.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'created' => [
+        'description' => 'The Unix timestamp when the process entry was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'changed' => [
+        'description' => 'The Unix timestamp when the process entry was most recently saved.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'width' => [
+        'description' => 'The width of the image.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'height' => [
+        'description' => 'The height of the image.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'size' => [
+        'description' => 'The size of the image.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'original_width' => [
+        'description' => 'The original width of the image.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'original_height' => [
+        'description' => 'The original height of the image.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'original_size' => [
+        'description' => 'The original size of the image.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'max_image_size_file_uuid' => ['uuid'],
+    ],
+    'foreign keys' => [
+      'file_managed' => [
+        'table' => 'file_managed',
+        'columns' => ['uuid' => 'uuid'],
+      ],
+    ],
+  ];
+  return $schema;
+}

@@ -1,0 +1,5 @@
+max_image_size.settings:
+  title: 'Max Image Size Settings'
+  parent: system.admin_config_media
+  route_name: max_image_size.settings
+  description: 'Configure max image size.'

@@ -1,0 +1,10 @@
+max_image_size.list:
+  route_name: max_image_size.list
+  base_route: max_image_size.list
+  title: List
+
+max_image_size.settings:
+  route_name: max_image_size.settings
+  base_route: max_image_size.list
+  title: Settings
+  weight: 50

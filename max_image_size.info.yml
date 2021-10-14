@@ -1,0 +1,9 @@
+name: Max Image Size
+description: 'Resizes uploaded images so they are under a maximum.'
+type: module
+package: Media
+core_version_requirement: ^8
+version: '8.x-1.0'
+dependencies:
+  - drupal:image
+configure: max_image_size.settings
