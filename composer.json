@@ -1,0 +1,9 @@
+{
+  "name": "davyin/max_image_resize",
+  "description": "Resizes uploaded images so they are under a maximum.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "require": {
+      "drupal/core": "^8.7 || ^9.1"
+  }
+}

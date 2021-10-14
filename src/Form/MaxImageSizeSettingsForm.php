@@ -49,9 +49,9 @@ class MaxImageSizeSettingsForm extends ConfigFormBase {
 
     $form['enabled'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Presave enabled'),
+      '#title' => $this->t('Enable'),
       '#default_value' => $config->get('enabled'),
-      '#description' => $this->t('Check this box to enable resizing of images when they are added to Drupal.'),
+      '#description' => $this->t('Check this box to resizing of images when they are added to Drupal.'),
     ];
 
     $form = parent::buildForm($form, $form_state);

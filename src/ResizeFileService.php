@@ -9,7 +9,7 @@ use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\file\FileInterface;
 
-class ResizeFileHelper {
+class ResizeFileService {
 
   /**
    * @var ImageFactory
