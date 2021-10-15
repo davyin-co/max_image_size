@@ -13,3 +13,11 @@ max_image_size.list:
     _title: 'List'
   requirements:
     _permission: 'administer max image size settings'
+
+max_image_size.resizing_confirm:
+  path: '/admin/config/media/max-image-size/dealing-all-image-resizing'
+  defaults:
+    _form: '\Drupal\max_image_size\Form\DealingAllImageResizeConfirmForm'
+    _title: 'Are you sure you want to dealing all image resizing'
+  requirements:
+    _permission: 'administer max image size settings'

@@ -26,6 +26,7 @@ class MaxImageSizeSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildForm($form, $form_state);
     $config = $this->config('max_image_size.settings');
     $form['width'] = [
       '#type' => 'number',
@@ -54,12 +55,13 @@ class MaxImageSizeSettingsForm extends ConfigFormBase {
       '#description' => $this->t('Check this box to resizing of images when they are added to Drupal.'),
     ];
 
-    $form = parent::buildForm($form, $form_state);
     $form['actions']['dealing_all_image_resizing'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Dealing all image resizing'),
-      '#submit' => ['::dealingSubmitForm'],
+      '#type' => 'link',
+      '#title' => $this->t('Dealing all image resizing'),
+      '#url' => Url::fromRoute('max_image_size.resizing_confirm'),
+      '#attributes' => ['class' => ['button']],
     ];
+
     return $form;
   }
 
@@ -73,40 +75,6 @@ class MaxImageSizeSettingsForm extends ConfigFormBase {
       ->set('enabled', $form_state->getValue('enabled'))
       ->save();
     parent::submitForm($form, $form_state);
-  }
-
-  /**
-   * Dealing all image resizing.
-   * @param array $form
-   * @param FormStateInterface $form_state
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  public function dealingSubmitForm(array &$form, FormStateInterface $form_state) {
-    $files = \Drupal::entityTypeManager()->getStorage('file')
-      ->loadByProperties(['filemime' => 'image/jpeg']);
-    $ops = [];
-    foreach ($files as $file) {
-      $ops[] = [
-        '\Drupal\max_image_size\ResizeBatch::resizeProcessCallback',
-        [
-          $file,
-        ]];
-    }
-    if ($ops) {
-      $batch = [
-        'title' => t('Dealing all image resizing'),
-        'init_message' => t('Start to dealing all image resizing'),
-        'error_message' => t('Dealing all image resizing error'),
-        'operations' => $ops,
-        'finished' => '\Drupal\max_image_size\ResizeBatch::resizeFinishedCallback',
-        'batch_redirect' => Url::fromRoute('max_image_size.list')->toString(),
-      ];
-      batch_set($batch);
-    } else {
-      \Drupal::messenger()->addStatus(t('No image to resizing'));
-    }
-    $form_state->setRedirectUrl(Url::fromRoute('max_image_size.list'));
   }
 
 }
