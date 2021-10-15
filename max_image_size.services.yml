@@ -1,5 +1,5 @@
 services:
   max_image_size.resize_file:
-    class: Drupal\max_image_size\ResizeService
+    class: Drupal\max_image_size\ResizeFileService
     arguments: [ '@image.factory', '@config.factory', '@logger.factory', '@database' ]
 
